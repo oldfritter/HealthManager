@@ -3,6 +3,7 @@ package tasks
 import (
 	"encoding/json"
 	"log"
+	"time"
 
 	"github.com/streadway/amqp"
 
@@ -15,12 +16,21 @@ func ComponentList() {
 	main.DeclareExchange(initializers.AmqpGlobalConfigs["main"].Exchange["components"]["name"], initializers.AmqpGlobalConfigs["main"].Exchange["components"]["kind"], true, false, false, false, amqp.Table{})
 
 	var allComponents []Component
+	t := time.Now().Add(-time.Second * 30).Unix()
 	for _, v := range AllComponents {
-		allComponents = append(allComponents, v)
+		if v.Timestamp > t {
+			allComponents = append(allComponents, v)
+		}
 	}
-	b, err := json.Marshal(allComponents)
-	if err != nil {
-		log.Println(err)
+	var b []byte
+	var err error
+	if len(allComponents) == 0 {
+		b = []byte("[]")
+	} else {
+		b, err = json.Marshal(allComponents)
+		if err != nil {
+			log.Println(err)
+		}
 	}
 	main.PublishMessageWithRouteKey(initializers.AmqpGlobalConfigs["main"].Exchange["components"]["name"], "#", "text/plain", &b, amqp.Table{}, amqp.Persistent)
 

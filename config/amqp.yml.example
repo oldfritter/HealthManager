@@ -4,7 +4,7 @@ main:
     port: 5672
     username: guest
     password: guest
-    vhost: /main
+    vhost: /
   exchange:
     heartbeat:
       name: aha.health.heartbeat

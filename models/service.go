@@ -39,7 +39,7 @@ func InitializeMysqlDBs() {
 }
 
 type MysqlDB struct {
-	Name     string
+	Name     string `json:"-"`
 	Database string `json:"database"`
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -72,7 +72,7 @@ func InitializeRedisDBs() {
 }
 
 type RedisDB struct {
-	Name string
+	Name string `json:"-"`
 	Host string `json:"host"`
 	Port string `json:"port"`
 	Db   string `json:"db"`
@@ -102,7 +102,7 @@ func InitializeRabbitmqs() {
 }
 
 type Rabbitmq struct {
-	Name    string
+	Name    string `json:"-"`
 	Connect struct {
 		Host     string `yaml:"host"`
 		Port     string `yaml:"port"`

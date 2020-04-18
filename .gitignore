@@ -15,3 +15,4 @@
 vendor/
 logs/
 pids/
+config/*.yml

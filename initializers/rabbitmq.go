@@ -13,13 +13,11 @@ import (
 )
 
 type Amqp struct {
-	Connect struct {
-		Host     string `yaml:"host"`
-		Port     string `yaml:"port"`
-		Username string `yaml:"username"`
-		Password string `yaml:"password"`
-		Vhost    string `yaml:"vhost"`
-	} `yaml:"connect"`
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+	Vhost    string `yaml:"vhost"`
 
 	Exchange map[string]map[string]string `yaml:"exchange"`
 }
@@ -45,7 +43,7 @@ func InitializeAmqpConfig() {
 
 func InitializeAmqpConnection(name string) {
 	var err error
-	conn, err := amqp.Dial("amqp://" + AmqpGlobalConfigs[name].Connect.Username + ":" + AmqpGlobalConfigs[name].Connect.Password + "@" + AmqpGlobalConfigs[name].Connect.Host + ":" + AmqpGlobalConfigs[name].Connect.Port + "/" + AmqpGlobalConfigs[name].Connect.Vhost)
+	conn, err := amqp.Dial("amqp://" + AmqpGlobalConfigs[name].Username + ":" + AmqpGlobalConfigs[name].Password + "@" + AmqpGlobalConfigs[name].Host + ":" + AmqpGlobalConfigs[name].Port + "/" + AmqpGlobalConfigs[name].Vhost)
 	RabbitMqConnects[name] = utils.RabbitMqConnect{conn}
 	if err != nil {
 		log.Fatal("rabbimq connect error: %v", err)

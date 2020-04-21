@@ -1,5 +1,5 @@
 main:
-  database: serbia
+  database: aha
   username: root
   password: 
   host: 127.0.0.1

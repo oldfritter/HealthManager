@@ -1,10 +1,29 @@
 main:
-  connect:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    vhost: /
+  host: 127.0.0.1
+  port: 5672
+  username: guest
+  password: guest
+  vhost: /aha
+  exchange:
+    heartbeat:
+      name: aha.health.heartbeat
+      kind: direct
+    services:
+      name: aha.services.list
+      kind: fanout
+    components:
+      name: aha.components.list
+      kind: fanout
+    data:
+      name: aha.data.update
+      kind: fanout
+
+data:
+  host: 127.0.0.1
+  port: 5672
+  username: guest
+  password: guest
+  vhost: /aha-data
   exchange:
     heartbeat:
       name: aha.health.heartbeat

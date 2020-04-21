@@ -33,12 +33,14 @@ func InitializeMysqlDBs() {
 		return
 	}
 	for k, m := range mysqlDBs {
+		m.Kind = "mysql"
 		m.Name = k
 		AllServices[m.Symbol()] = m
 	}
 }
 
 type MysqlDB struct {
+	Kind     string `json:"kind"`
 	Name     string `json:"-"`
 	Database string `json:"database"`
 	Username string `json:"username"`
@@ -66,12 +68,14 @@ func InitializeRedisDBs() {
 		return
 	}
 	for k, m := range redisDBs {
+		m.Kind = "redis"
 		m.Name = k
 		AllServices[m.Symbol()] = m
 	}
 }
 
 type RedisDB struct {
+	Kind string `json:"kind"`
 	Name string `json:"-"`
 	Host string `json:"host"`
 	Port string `json:"port"`
@@ -96,20 +100,20 @@ func InitializeRabbitmqs() {
 		return
 	}
 	for k, m := range rabbitmqs {
+		m.Kind = "rabbitmq"
 		m.Name = k
 		AllServices[m.Symbol()] = m
 	}
 }
 
 type Rabbitmq struct {
-	Name    string `json:"-"`
-	Connect struct {
-		Host     string `yaml:"host"`
-		Port     string `yaml:"port"`
-		Username string `yaml:"username"`
-		Password string `yaml:"password"`
-		Vhost    string `yaml:"vhost"`
-	} `yaml:"connect"`
+	Kind     string `json:"kind"`
+	Name     string `json:"-"`
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Vhost    string `json:"vhost"`
 }
 
 func (r Rabbitmq) Symbol() string {
